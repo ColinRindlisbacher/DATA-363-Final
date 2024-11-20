@@ -1,6 +1,6 @@
 ---
 title: "Electric Car in America"
-output: github_document
+output: pdf_document
 ---
 
 This is intended to be where we work, I am testing to see if I am able to push this
@@ -16,8 +16,13 @@ This is an R Markdown format used for publishing markdown documents to GitHub. W
 
 You can include R code in the document as follows:
 
-```{r cars}
-summary(cars)
+```{r}
+power.prop.test(p1=0.093,
+                p2=0.120,
+                sig.level = 0.05,
+                n = 2000,
+                #power = 0.90,
+                alternative = "one.sided" )
 ```
 
 ## Including Plots
@@ -25,7 +30,12 @@ summary(cars)
 You can also embed plots, for example:
 
 ```{r pressure, echo=FALSE}
-plot(pressure)
+power.prop.test(p1=0.093,
+                p2=0.120,
+                sig.level = 0.05,
+                n = 2000,
+                #power = 0.90,
+                alternative = "one.sided" )
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
