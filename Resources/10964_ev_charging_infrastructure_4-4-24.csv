@@ -1,29 +1,14 @@
-﻿,,,
- U.S. Public and Private Electric Vehicle Charging Infrastructure ,,,
- Year , EV Charging Ports , Station Locations ,
-2011," 5,070 "," 2,100 ",
-2012," 14,982 "," 6,200 ",
-2013," 19,472 "," 8,100 ",
-2014," 25,944 "," 10,977 ",
-2015," 34,333 "," 14,138 ",
-2016," 44,354 "," 17,810 ",
-2017," 52,450 "," 19,965 ",
-2018," 64,249 "," 22,896 ",
-2019," 85,439 "," 27,031 ",
-2020," 107,561 "," 31,816 ",
-2021," 128,904 "," 50,172 ",
-2022," 151,273 "," 57,482 ",
-2023," 184,098 "," 68,475 ",
-,,,
-Data Source:,,,
-Alternative Fuels Data Center (afdc.energy.gov/stations/states),,,
-,,,
-Notes:,,,
-"Data snapshots were taken each year in December, as close to the end of the year as possible.",,,
-"Between 2011 and 2013, the electric vehicle charging station counts are an estimate of the number of geographic locations (i.e., station locations) based on the number of EV charging ports because station counts were not captured in these years.",,,
-,,,
-Acronyms and Abbreviations:,,,
-EV: electric vehicle,,,
-,,,
-Worksheet available at afdc.energy.gov/data,,,
-Last updated March 2024,,,
+﻿ Year , EV Charging Ports , Station Locations 
+2011,5070,2100
+2012,14982,6200
+2013,19472,8100
+2014,25944,10977
+2015,34333,14138
+2016,44354,17810
+2017,52450,19965
+2018,64249,22896
+2019,85439,27031
+2020,107561,31816
+2021,128904,50172
+2022,151273,57482
+2023,184098,68475

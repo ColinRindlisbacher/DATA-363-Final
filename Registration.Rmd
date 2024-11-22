@@ -20,3 +20,14 @@ withoutCali
 barplot(withoutCali$Registration.Count/1000, 
 ylab="Registration Counts (in Thousands)", names.arg = withoutCali$State, las=2)
 ```
+
+Let's look at the data sorted by the count.
+```{r}
+sortedStates <- stateReg[order(stateReg$Registration.Count, decreasing = TRUE), ]
+sortedStates
+```
+
+Let's look at the five number summary of our data.
+```{r}
+summary(stateReg)
+```
