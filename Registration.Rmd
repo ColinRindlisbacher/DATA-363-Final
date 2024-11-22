@@ -1,0 +1,22 @@
+
+Here, we get the data from the csv and clean it up.
+```{r}
+ stateReg <- read.csv("Resources/10962-ev-registration-counts-by-state_9-06-24.csv", header=TRUE, sep =",")
+ stateReg
+```
+
+Next, we create a bar plot with our counts.
+```{r}
+barplot(stateReg$Registration.Count/1000, 
+ylab="Registration Counts (in Thousands)", names.arg = stateReg$State, las=2)
+```
+
+We see that California is a major outlier, so lets create a plot without it.
+```{r}
+withoutCali <- subset(stateReg, stateReg$State != "California")
+withoutCali
+
+
+barplot(withoutCali$Registration.Count/1000, 
+ylab="Registration Counts (in Thousands)", names.arg = withoutCali$State, las=2)
+```
