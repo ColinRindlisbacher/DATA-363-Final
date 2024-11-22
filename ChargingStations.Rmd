@@ -1,0 +1,46 @@
+Here, we get the data from the csv and clean it up.
+```{r}
+chargingStations.year <- read.csv("Resources/10964_ev_charging_infrastructure_4-4-24.csv", header=TRUE, sep =",")
+chargingStations.state <- read.csv("Resources/alt_fuel_stations (Nov 22 2024).csv", header=TRUE, sep =",")
+chargingStations.year
+chargingStations.state
+```
+
+First, the data set for year, only includes up until 2023, but our second data set was updated until 11/22/2024.
+So, we can add the total count to a 2024 column in our year. Since we only care about the station locations, and not
+the total number of ports (a station has multiple ports), we can do this.
+```{r}
+row2024 <- data.frame(Year = 2024, EV.Charging.Ports = NA, Station.Locations = nrow(chargingStations.state))
+
+chargingStations.year <- rbind(chargingStations.year, row2024)
+
+chargingStations.year
+```
+
+Let's visualize the growth of station locations over time.
+```{r}
+plot(chargingStations.year$Station.Locations, type="o", xaxt = "n",
+     xlab="Years 2011 - 2024", ylab = "Number of Station Locations")
+
+axis(1, at = 1:14, labels=2011:2024)
+```
+Now, let's look at charging stations by State in 2024. First we must create a dataframe with the counts of each state present in the state dataframe, and then we can visualize it.
+```{r}
+stateCounts <- as.data.frame(table(chargingStations.state$State))
+colnames(stateCounts) <- c("State", "Count")
+
+stateCounts
+
+barplot(stateCounts$Count/100, ylab="Charging Stations Present (In Hundreds)", 
+        names.arg = stateCounts$State, las=2)
+```
+
+Sort the counts so that we can see the rankings. It might show a connection with our registration counts.
+```{r}
+sortedCounts <- stateCounts[order(stateCounts$Count, decreasing = TRUE), ]
+sortedCounts
+```
+Let's observe the 5 number summary.
+```{r}
+summary(stateCounts)
+```
