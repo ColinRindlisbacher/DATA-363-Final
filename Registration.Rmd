@@ -1,3 +1,6 @@
+```{r}
+library(ggplot2)
+```
 
 Here, we get the data from the csv and clean it up.
 ```{r}
@@ -7,8 +10,14 @@ Here, we get the data from the csv and clean it up.
 
 Next, we create a bar plot with our counts.
 ```{r}
-barplot(stateReg$Registration.Count/1000, 
-ylab="Registration Counts (in Thousands)", names.arg = stateReg$State, las=2)
+ggplot(stateReg, aes(x = State, y = Registration.Count / 1000)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(
+    y = "Registrations (In Thousands)", 
+    x = "State"
+  ) +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 90))
 ```
 
 We see that California is a major outlier, so lets create a plot without it.
@@ -17,8 +26,14 @@ withoutCali <- subset(stateReg, stateReg$State != "California")
 withoutCali
 
 
-barplot(withoutCali$Registration.Count/1000, 
-ylab="Registration Counts (in Thousands)", names.arg = withoutCali$State, las=2)
+ggplot(withoutCali, aes(x = State, y = Registration.Count / 1000)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(
+    y = "Registrations (In Thousands)", 
+    x = "State"
+  ) +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 90))
 ```
 
 Let's look at the data sorted by the count.
