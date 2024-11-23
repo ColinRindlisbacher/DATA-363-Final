@@ -56,7 +56,8 @@ Sort the counts so that we can see the rankings. It might show a connection with
 sortedCounts <- stateCounts[order(stateCounts$Count, decreasing = TRUE), ]
 sortedCounts
 ```
-Let's observe the 5 number summary.
+Let's observe the 5 number summary and total count.
 ```{r}
 summary(stateCounts)
+sum(stateCounts$Count)
 ```

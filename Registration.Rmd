@@ -44,7 +44,8 @@ sortedStates <- stateReg[order(stateReg$Registration.Count, decreasing = TRUE), 
 sortedStates
 ```
 
-Let's look at the five number summary of our data.
+Let's look at the five number summary of our data and the total count.
 ```{r}
 summary(stateReg)
+sum(stateReg$Registration.Count)
 ```
