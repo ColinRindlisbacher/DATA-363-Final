@@ -13,6 +13,7 @@ Next, we create a bar plot with our counts.
 ggplot(stateReg, aes(x = State, y = Registration.Count / 1000)) +
   geom_bar(stat = "identity", fill = "skyblue") +
   labs(
+    title = "Registration Counts Sorted Alphabetically",
     y = "Registrations (In Thousands)", 
     x = "State"
   ) +
@@ -29,6 +30,7 @@ withoutCali
 ggplot(withoutCali, aes(x = State, y = Registration.Count / 1000)) +
   geom_bar(stat = "identity", fill = "skyblue") +
   labs(
+    title = "Registration Counts Sorted Alphabetically (Without California)",
     y = "Registrations (In Thousands)", 
     x = "State"
   ) +

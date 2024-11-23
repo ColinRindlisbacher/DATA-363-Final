@@ -43,6 +43,7 @@ stateCounts
 ggplot(stateCounts, aes(x = State, y = Count / 100)) +
   geom_bar(stat = "identity", fill = "skyblue") + # `stat = "identity"` is for bar height defined by `y`
   labs(
+    title = "Charging Stations Present in US by State in 2024",
     y = "Charging Stations Present (In Hundreds)", 
     x = "State"
   ) +
