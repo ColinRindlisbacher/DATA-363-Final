@@ -1,0 +1,79 @@
+---
+title: "Models and Manufacturers"
+output: pdf_document
+---
+
+
+```{r}
+# Load necessary libraries
+library(data.table)
+library(dplyr)
+library(ggplot2)
+```
+
+
+```{r}
+# Get the list of CSV files
+files <- list.files(path = "StateCsvs/", pattern = "\\.csv$", full.names = TRUE)
+
+# Process and combine data
+data_list <- lapply(files, function(file) {
+  # Load the file
+  data <- fread(file)
+  
+  # Select only the relevant columns
+  data <- data %>%
+    select(`Vehicle Model Year`, `Vehicle Make`, `Vehicle Model`)
+  
+  return(data)
+})
+
+# Combine datasets
+combined_data <- bind_rows(data_list)
+```
+
+```{r}
+# Calculate the number of unique models per year
+unique_models_by_year <- combined_data %>%
+  filter(!is.na(`Vehicle Model Year`), `Vehicle Model Year` < 2025) %>%
+  group_by(`Vehicle Model Year`) %>%
+  summarise(Unique_Models = n_distinct(paste(`Vehicle Make`, `Vehicle Model`, sep = " "))) %>%
+  arrange(`Vehicle Model Year`)
+
+# Preview the results
+print(unique_models_by_year)
+
+# Create a plot
+ggplot(unique_models_by_year, aes(x = `Vehicle Model Year`, y = Unique_Models)) +
+  geom_line(color = "blue", size = 1) +
+  geom_point(color = "red", size = 2) +
+  labs(
+    title = "Unique EV Models Offered Over Time",
+    x = "Year",
+    y = "Number of Unique Models"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+# Calculate the total unique models offered by each manufacturer
+unique_models_by_manufacturer <- combined_data %>%
+  group_by(`Vehicle Make`) %>%
+  summarise(Unique_Models = n_distinct(`Vehicle Model`)) %>%
+  filter(Unique_Models > 2) %>% 
+  arrange(desc(Unique_Models))  # Arrange in descending order
+
+# Preview the results
+print(unique_models_by_manufacturer)
+
+# Create a bar plot
+ggplot(unique_models_by_manufacturer, aes(x = reorder(`Vehicle Make`, -Unique_Models), y = Unique_Models)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  labs(
+    title = "Total Unique Models Offered by Each Manufacturer",
+    x = "Manufacturer",
+    y = "Number of Unique Models"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90))
+```
