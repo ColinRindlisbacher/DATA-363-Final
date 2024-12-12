@@ -1,0 +1,54 @@
+---
+title: "Regression Analysis"
+output: output: pdf_document
+---
+
+```{r}
+ df <- read.csv("Resources/EVRegByYear.csv", header=TRUE, sep =",")
+ df
+```
+
+
+
+
+
+```{r}
+library(ggplot2)
+ggplot(df, aes(x = Unique_Models, y = EV.Registrations)) +
+  geom_point() + 
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "EV Registrations vs Unique Models")
+
+ggplot(df, aes(x = Charging.Stations, y = EV.Registrations)) +
+  geom_point() + 
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "EV Registrations vs Charging Stations")
+```
+
+
+```{r}
+cor(df$Unique_Models, df$Charging.Stations)
+```
+
+```{r}
+model <- lm(EV.Registrations ~ Unique_Models + Charging.Stations, data = df)
+summary(model)
+```
+
+```{r}
+par(mfrow = c(2, 2))  # Display diagnostic plots
+plot(model)
+```
+
+```{r}
+model_interaction <- lm(EV.Registrations ~ Unique_Models * Charging.Stations, data = df)
+summary(model_interaction)
+```
+
+```{r}
+df$Unique_Models_scaled <- scale(df$Unique_Models)
+df$Charging_Stations_scaled <- scale(df$Charging.Stations)
+interaction_model_scaled <- lm(EV.Registrations ~ Unique_Models_scaled * Charging_Stations_scaled, data = df)
+summary(interaction_model_scaled)
+```
+
