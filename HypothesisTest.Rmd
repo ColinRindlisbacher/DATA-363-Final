@@ -1,0 +1,50 @@
+```{r}
+library(dplyr)
+```
+
+Here, we get the data from the csv and clean it up.
+```{r}
+chargingStations.state <- read.csv("Resources/alt_fuel_stations (Nov 22 2024).csv", header=TRUE, sep =",")
+chargingStations.state
+```
+
+First, the data set for year, only includes up until 2023, but our second data set was updated until 11/22/2024.
+So, we can add the total count to a 2024 column in our year. Since we only care about the station locations, and not
+the total number of ports (a station has multiple ports), we can do this.
+```{r}
+stateCounts <- as.data.frame(table(chargingStations.state$State))
+colnames(stateCounts) <- c("State", "Count")
+
+stateCounts
+```
+
+
+
+Now that we've gotten our data again, let's sample 25 random states so that we can perform a hypothesis test on them.
+```{r}
+set.seed(2024)
+randomStates<-sample_n(stateCounts, 25)
+
+randomStates
+mean(randomStates$Count)
+sd(randomStates$Count)
+```
+
+This makes our Null Hypothesis that the average number of charging stations in 2024 is equal to 1035.96. However because we have more states, we know that isn't the actual mean. We know the actual mean is 1524.7. This data doesn't contain California or other big counters like Florida which we suspect would bring our average up. So our alternative hypothesis is that the average should be higher.
+
+
+$$H_0: \mu = 1035.96$$
+$$H_a: \mu > 1035.96$$
+
+$$t = \frac{\bar x - \mu}{s / \sqrt{n}}$$
+$$t = \frac{1035.96 - 1524.7}{1045.01 / \sqrt{25}}$$
+```{r}
+  tValue <- (mean(randomStates$Count)-1524.7)/(sd(randomStates$Count)/(sqrt(25)))
+  tValue
+  
+  criticalVal<-qt(0.975, df = 25 - 1)
+  criticalVal
+```
+
+$$|t| \approx 2.338 > 2.064$$
+Beacuse the absolute value of the t value is greater than our critical value, we can reject the null hypothesis.
